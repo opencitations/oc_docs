@@ -1,32 +1,60 @@
 # Quick start
 
-!!! tip "What you'll learn"
+!!! tip "Time estimate: 5 minutes"
     This tutorial walks you through your first requests to the OpenCitations API. You'll start by counting citations for a paper, then retrieve the full citation data, and finally look up bibliographic metadata.
 
     No account, no API key, no setup required.
 
-## Prerequisites
+## What is the OpenCitations API?
 
-You need one of the following:
+OpenCitations collects and publishes open citation data from scholarly literature. All this data is accessible through an API (Application Programming Interface), which is a way for programs and scripts to retrieve information directly from OpenCitations by requesting a specific URL.
 
-- **curl** (comes with macOS and most Linux distributions)
-- **Python 3** with the `requests` library (`pip install requests`)
+You send a request, and you get back structured data with the answer. This means you can use it in your scripts, your analysis pipelines, or even embed results into your own website.
+
+OpenCitations provides two APIs:
+
+- **Index API** - citation data: who cites whom, when, and how they relate
+- **Meta API** - bibliographic metadata: titles, authors, venues, dates
+
+In this tutorial you will use both, starting from a single DOI.
 
 ## Before we start: identifiers
 
 The API identifies scholarly works through persistent identifiers (PIDs). You pass them in the URL using the format `prefix:value`.
 
-| Prefix | Name | Example | Assigned by |
-|--------|------|---------|-------------|
-| `doi:` | Digital Object Identifier | `doi:10.1162/qss_a_00023` | Publishers, via Crossref/DataCite |
-| `pmid:` | PubMed Identifier | `pmid:33817056` | NLM (National Library of Medicine) |
-| `omid:` | OpenCitations Meta Identifier | `omid:br/062501777134` | OpenCitations |
+| Prefix | Name | Example |
+|--------|------|---------|
+| `doi` | Digital Object Identifier | `doi:10.1162/qss_a_00023` |
+| `pmid` | PubMed Identifier | `pmid:33817056` |
+| `omid` | OpenCitations Meta Identifier | `omid:br/062501777134` |
 
 The most common case is having a DOI. If you have one, you're good.
 
 ## Step 1: Count citations for a paper
 
-The `citation-count` endpoint returns the number of incoming citations for a given work. We'll use the DOI of the paper *"OpenCitations, An Infrastructure Organization For Open Scholarship"* as an example throughout this tutorial.
+One of the things you can do with the API is count how many times a paper has been cited. To do this, you just need to open a specific URL that contains the DOI of the paper you are interested in.
+
+Throughout this tutorial, we'll use the DOI `10.1162/qss_a_00023` as an example.
+
+The simplest way to try the API is to open this URL in your browser:
+
+```
+https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023
+```
+
+You will see the response directly in the browser window:
+
+```json
+[
+    {
+        "count": "101"
+    }
+]
+```
+
+You just made your first API call. You opened a URL, and OpenCitations responded with data in JSON format. Every interaction with the API works the same way: a URL in, structured data out.
+
+Now let's do the same thing from the command line and from Python, which is how you'll use the API in practice:
 
 === "curl"
 
@@ -45,16 +73,6 @@ The `citation-count` endpoint returns the number of incoming citations for a giv
     result = response.json()
     print(result)
     ```
-
-Response:
-
-```json
-[
-    {
-        "count": "101"
-    }
-]
-```
 
 | Field | Meaning |
 |-------|---------|
@@ -178,13 +196,13 @@ The Meta API supports more identifier types than the Index API:
 
 | Prefix | Name |
 |--------|------|
-| `doi:` | Digital Object Identifier |
-| `pmid:` | PubMed Identifier |
-| `pmcid:` | PubMed Central Identifier |
-| `omid:` | OpenCitations Meta Identifier |
-| `openalex:` | OpenAlex Identifier |
-| `issn:` | International Standard Serial Number (journals) |
-| `isbn:` | International Standard Book Number (books) |
+| `doi` | Digital Object Identifier |
+| `pmid` | PubMed Identifier |
+| `pmcid` | PubMed Central Identifier |
+| `omid` | OpenCitations Meta Identifier |
+| `openalex` | OpenAlex Identifier |
+| `issn` | International Standard Serial Number (journals) |
+| `isbn` | International Standard Book Number (books) |
 
 ## Step 4: Authenticate your requests
 
@@ -234,5 +252,3 @@ At this point you know how to:
 
 - [**Index API v2 full documentation**](https://api.opencitations.net/index/v2): all available operations, parameters, and examples
 - [**Meta API v1 full documentation**](https://api.opencitations.net/meta/v1): all metadata operations, including search by author and editor
-- [**Filtering & sorting**](guides/filtering.md): narrow down results with query parameters
-- [**What are OCIs**](concepts/oci.md): the Open Citation Identifier in depth
