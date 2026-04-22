@@ -28,9 +28,9 @@ OpenCitations provides the raw citation data and bibliographic metadata. It is t
 
 There are several ways to access OpenCitations data, depending on your needs.
 
-**[Search](search/index.md)**: a web interface at [search.opencitations.net](https://search.opencitations.net) for looking up citations and references of individual works. No technical knowledge required.
+**[Search](search/howto.md)**: a web interface at [search.opencitations.net](https://search.opencitations.net) for looking up citations and references of individual works. No technical knowledge required.
 
-**[REST API](api/quickstart.md)**: programmatic access to citation data (Index API) and bibliographic metadata (Meta API). Useful for building scripts, pipelines, and integrations. The full endpoint documentation is available at [api.opencitations.net](https://api.opencitations.net). Here you can find a [quick overview](api/quickstart.md).
+**[REST API](api/quickstart.md)**: programmatic access to citation data (Index API) and bibliographic metadata (Meta API). Useful for building scripts, pipelines, and integrations. The full endpoint documentation is available at [api.opencitations.net](https://api.opencitations.net).
 
 **[SPARQL endpoints](https://sparql.opencitations.net)**: for advanced users who want to query the data using SPARQL.
 
