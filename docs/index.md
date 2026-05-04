@@ -4,14 +4,14 @@
 
 OpenCitations is an open infrastructure that collects, stores, and publishes bibliographic and citation data from scholarly literature. It is managed by the [Research Centre for Open Scholarly Metadata](https://openscholarlymetadata.org/) at the University of Bologna.
 
-The two datasets are:
+The two main datasets are:
 
 - **OpenCitations Index**: over 2.4 billion citation links between scholarly works. A citation link connects a citing work to a cited work, with metadata about the citation itself (date, timespan, self-citation flags).
 - **OpenCitations Meta**: bibliographic metadata for over 129 million publications, including titles, authors, venues, publication dates, and identifiers.
 
-The data comes from multiple sources e.g.: Crossref, DataCite, NIH-OCC (PubMed), OpenAIRE, and JALC.
+The data comes from multiple sources: Crossref, DataCite, NIH-OCC (PubMed), OpenAIRE, and JALC.
 
-All data is released under a [CC0 public domain dedication](https://creativecommons.org/public-domain/cc0/) and can be freely reused for any purpose.
+All data is released under a [CC0 public domain dedication](https://creativecommons.org/public-domain/cc0/) and can be freely reused for any purpose, including commercial use.
 
 ## What OpenCitations is not
 
@@ -28,13 +28,13 @@ OpenCitations provides the raw citation data and bibliographic metadata. It is t
 
 There are several ways to access OpenCitations data, depending on your needs.
 
-**[Search](search/howto.md)**: a web interface at [search.opencitations.net](https://search.opencitations.net) for looking up citations and references of individual works. No technical knowledge required.
+**[Search](search/index.md)**: a web interface at [search.opencitations.net](https://search.opencitations.net) for looking up citations and references of individual works. No technical knowledge required.
 
 **[REST API](api/quickstart.md)**: programmatic access to citation data (Index API) and bibliographic metadata (Meta API). Useful for building scripts, pipelines, and integrations. The full endpoint documentation is available at [api.opencitations.net](https://api.opencitations.net).
 
 **[SPARQL endpoints](https://sparql.opencitations.net)**: for advanced users who want to query the data using SPARQL.
 
-**[Data dumps](https://download.opencitations.net)**: complete database exports available on Zenodo, Figshare, and the Internet Archive. This is the best option for large-scale analysis when the API rate limits are not enough. We provide provenance too.
+**[Data dumps](https://download.opencitations.net)**: complete database exports available on Zenodo, Figshare, and the Internet Archive. This is the best option for large-scale analysis when the API rate limits are not enough.
 
 ## License
 
