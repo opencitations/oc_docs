@@ -3,6 +3,8 @@ on:
   push:
     branches: 
       - main
+
+  pull:
       - switch-to-Jupyter
 env:
   BASE_URL: /${{ github.event.repository.name }}
