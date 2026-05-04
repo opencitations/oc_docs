@@ -1,3 +1,9 @@
+---
+kernelspec:
+  name: python3
+  display_name: Python 3
+---
+
 # Quick start
 
 :::{admonition} Time estimate: 5 minutes
@@ -46,12 +52,15 @@ https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023
 
 You will see the response directly in the browser window:
 
-```json
-[
-    {
-        "count": "101"
-    }
-]
+```{code-cell} python
+:tags: [remove-input]
+import requests
+import json
+
+response = requests.get(
+    "https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023"
+)
+print(json.dumps(response.json(), indent=4))
 ```
 
 You just made your first API call. You opened a URL, and OpenCitations responded with data in JSON format. Every interaction with the API works the same way: a URL in, structured data out.
