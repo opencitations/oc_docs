@@ -1,10 +1,7 @@
 name: Deploy Jupyter Book to GitHub Pages
 on:
   push:
-    branches: 
-      - main
-      - switch-to-Jupyter
-
+    branches: [main]
 env:
   BASE_URL: /${{ github.event.repository.name }}
 
