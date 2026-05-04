@@ -2,11 +2,12 @@
 version: 1
 project:
   id: a985d373-0239-480f-8063-605f68e4705f
-  title: OpenCitations Documentation
+  title: OpenCitations Docs
   description: Official documentation and tutorials for OpenCitations services
   keywords:
     - opencitations
     - opencitations tutorials
+    - opencitations documentations
   github: https://github.com/opencitations/oc_docs
   # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
   toc:
