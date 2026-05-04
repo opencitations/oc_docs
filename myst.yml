@@ -1,0 +1,38 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  id: a985d373-0239-480f-8063-605f68e4705f
+  title: OpenCitations Documentation
+  description: Official documentation and tutorials for OpenCitations services
+  keywords:
+    - opencitations
+    - opencitations tutorials
+  github: https://github.com/opencitations/oc_docs
+  # To autogenerate a Table of Contents, run "jupyter book init --write-toc"
+  toc:
+      - file: docs/index
+      - title: API
+        children:
+          - file: docs/api/quickstart
+          - file: docs/api/use-cases
+          - title: Guides
+            children:
+              - file: docs/api/guides/filtering
+              - file: docs/api/guides/pagination
+              - file: docs/api/guides/output-formats
+              - file: docs/api/guides/error-handling
+          - title: Concepts
+            children:
+              - file: docs/api/concepts/data-model
+              - file: docs/api/concepts/oci
+              - file: docs/api/concepts/index-vs-meta
+      - title: Search
+        children:
+          - file: docs/search/howto
+    
+site:
+  template: book-theme
+  options:
+    favicon: docs/assets/favicon.png
+    logo_text: Opencitations
+    #logo: docs/assets/oc_logo_small.png

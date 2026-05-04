@@ -1,9 +1,11 @@
 # Quick start
 
-!!! tip "Time estimate: 5 minutes"
-    This tutorial walks you through your first requests to the OpenCitations API. You'll start by counting citations for a paper, then retrieve the full citation data, and finally look up bibliographic metadata.
+:::{admonition} Time estimate: 5 minutes
+:class: tip
+This tutorial walks you through your first requests to the OpenCitations API. You'll start by counting citations for a paper, then retrieve the full citation data, and finally look up bibliographic metadata.
 
-    No account, no API key, no setup required.
+No account, no API key, no setup required.
+:::
 
 ## What is the OpenCitations API?
 
@@ -56,56 +58,72 @@ You just made your first API call. You opened a URL, and OpenCitations responded
 
 Now let's do the same thing from the command line and from Python, which is how you'll use the API in practice:
 
-=== "curl"
+::::{tab-set}
+:sync-group: code
 
-    ```bash
-    curl 'https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023'
-    ```
+:::{tab-item} curl
+:sync: curl
+```bash
+curl 'https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023'
+```
+:::
 
-=== "Python"
+:::{tab-item} Python
+:sync: python
+```python
+import requests
 
-    ```python
-    import requests
+response = requests.get(
+    "https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023"
+)
+result = response.json()
+print(result)
+```
+:::
 
-    response = requests.get(
-        "https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023"
-    )
-    result = response.json()
-    print(result)
-    ```
+::::
 
 | Field | Meaning |
 |-------|---------|
 | `count` | Number of works that cite the queried paper |
 
-!!! note "Try it yourself"
-    Replace the DOI in the URL with any DOI you care about. The pattern is always `/index/v2/citation-count/doi:<your-doi>`.
+:::{admonition} Try it yourself
+:class: note
+Replace the DOI in the URL with any DOI you care about. The pattern is always `/index/v2/citation-count/doi:<your-doi>`.
 
-    The endpoint also accepts `pmid:` and `omid:` prefixes.
+The endpoint also accepts `pmid:` and `omid:` prefixes.
+:::
 
 ## Step 2: Get the full list of citations
 
 A count is useful, but often you need to know *which* works cited the paper. The `citations` endpoint returns the complete list with details about each citation.
 
-=== "curl"
+::::{tab-set}
+:sync-group: code
 
-    ```bash
-    curl 'https://api.opencitations.net/index/v2/citations/doi:10.1162/qss_a_00023'
-    ```
+:::{tab-item} curl
+:sync: curl
+```bash
+curl 'https://api.opencitations.net/index/v2/citations/doi:10.1162/qss_a_00023'
+```
+:::
 
-=== "Python"
+:::{tab-item} Python
+:sync: python
+```python
+response = requests.get(
+    "https://api.opencitations.net/index/v2/citations/doi:10.1162/qss_a_00023"
+)
+citations = response.json()
 
-    ```python
-    response = requests.get(
-        "https://api.opencitations.net/index/v2/citations/doi:10.1162/qss_a_00023"
-    )
-    citations = response.json()
+for cit in citations[:3]:
+    print(f"Cited by: {cit['citing']}")
+    print(f"  Date: {cit['creation']}")
+    print()
+```
+:::
 
-    for cit in citations[:3]:
-        print(f"Cited by: {cit['citing']}")
-        print(f"  Date: {cit['creation']}")
-        print()
-    ```
+::::
 
 The response is a JSON array. Each element is one citation:
 
@@ -133,32 +151,41 @@ The response is a JSON array. Each element is one citation:
 
 The `citing` and `cited` fields contain multiple identifiers separated by spaces. OpenCitations stores all the known IDs for a given work: its internal OMID, the DOI, the OpenAlex ID, etc.
 
-!!! info "What is an OCI?"
-    The **Open Citation Identifier** (OCI) is a persistent identifier that OpenCitations assigns to each citation. It is composed of two numbers separated by a dash: the first refers to the citing work, the second to the cited work. More details in [What are OCIs](concepts/oci.md).
+:::{admonition} What is an OCI?
+:class: info
+The **Open Citation Identifier** (OCI) is a persistent identifier that OpenCitations assigns to each citation. It is composed of two numbers separated by a dash: the first refers to the citing work, the second to the cited work. More details in [What are OCIs](concepts/oci.md).
+:::
 
 ## Step 3: Retrieve bibliographic metadata
 
 The Index API tells you *who cites whom*, but not the titles or authors. That information lives in the **Meta API**.
 
-=== "curl"
+::::{tab-set}
+:sync-group: code
 
-    ```bash
-    curl 'https://api.opencitations.net/meta/v1/metadata/doi:10.1162/qss_a_00023'
-    ```
+:::{tab-item} curl
+:sync: curl
+```bash
+curl 'https://api.opencitations.net/meta/v1/metadata/doi:10.1162/qss_a_00023'
+```
+:::
 
-=== "Python"
+:::{tab-item} Python
+:sync: python
+```python
+response = requests.get(
+    "https://api.opencitations.net/meta/v1/metadata/doi:10.1162/qss_a_00023"
+)
+metadata = response.json()[0]
 
-    ```python
-    response = requests.get(
-        "https://api.opencitations.net/meta/v1/metadata/doi:10.1162/qss_a_00023"
-    )
-    metadata = response.json()[0]
+print(f"Title:     {metadata['title']}")
+print(f"Authors:   {metadata['author']}")
+print(f"Published: {metadata['pub_date']}")
+print(f"Venue:     {metadata['venue']}")
+```
+:::
 
-    print(f"Title:     {metadata['title']}")
-    print(f"Authors:   {metadata['author']}")
-    print(f"Published: {metadata['pub_date']}")
-    print(f"Venue:     {metadata['venue']}")
-    ```
+::::
 
 Response:
 
@@ -216,27 +243,36 @@ To get started:
 2. Get your token
 3. Include it in your requests:
 
-=== "curl"
+::::{tab-set}
+:sync-group: code
 
-    ```bash
-    curl -H 'Authorization: YOUR-OPENCITATIONS-ACCESS-TOKEN' \
-      'https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023'
-    ```
+:::{tab-item} curl
+:sync: curl
+```bash
+curl -H 'Authorization: YOUR-OPENCITATIONS-ACCESS-TOKEN' \
+  'https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023'
+```
+:::
 
-=== "Python"
+:::{tab-item} Python
+:sync: python
+```python
+session = requests.Session()
+session.headers["Authorization"] = "YOUR-OPENCITATIONS-ACCESS-TOKEN"
 
-    ```python
-    session = requests.Session()
-    session.headers["Authorization"] = "YOUR-OPENCITATIONS-ACCESS-TOKEN"
+# Use session instead of requests for all your calls
+result = session.get(
+    "https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023"
+).json()
+```
+:::
 
-    # Use session instead of requests for all your calls
-    result = session.get(
-        "https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023"
-    ).json()
-    ```
+::::
 
-!!! warning "Rate limits"
-    API calls are rate-limited to **180 requests per minute** per IP address. This limit exists to guarantee fair access to the service for everyone, regardless of who they are or where they come from. For large-scale data retrieval, use the [database dumps](https://download.opencitations.net/) instead.
+:::{admonition} Rate limits
+:class: warning
+API calls are rate-limited to **180 requests per minute** per IP address. This limit exists to guarantee fair access to the service for everyone, regardless of who they are or where they come from. For large-scale data retrieval, use the [database dumps](https://download.opencitations.net/) instead.
+:::
 
 ## What you've learned
 

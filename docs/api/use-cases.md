@@ -1,3 +1,8 @@
+---
+kernelspec:
+  name: python3
+  display_name: Python 3
+---
 # Use cases
 
 Two practical examples of what you can build with the OpenCitations API.
@@ -15,7 +20,8 @@ INPUT_FILE = "list_of_papers.txt"   # one DOI per line
 OUTPUT_FILE = "citation_counts.csv"
 API_BASE = "https://api.opencitations.net/index/v2/citation-count/doi:"
 
-# Optional: use an access token for better tracking
+# Optional: include your access token to help OpenCitations
+# monitor anonymous usage of its services
 # https://opencitations.net/accesstoken
 TOKEN = None
 
@@ -78,8 +84,10 @@ doi,citation_count
 ...
 ```
 
-!!! warning "Rate limits and large datasets"
-    At 180 requests per minute, processing 5000 DOIs takes about 28 minutes. If you need citation data for tens of thousands of papers, consider using the [database dumps](https://download.opencitations.net/) instead.
+:::{admonition} Rate limits and large datasets
+:class: warning
+At 180 requests per minute, processing 5000 DOIs takes about 28 minutes. If you need citation data for tens of thousands of papers, consider using the [database dumps](https://download.opencitations.net/) instead.
+:::
 
 ## 2. Live citation counts on your website
 
@@ -101,6 +109,14 @@ Add this snippet wherever you want the count to appear, and replace the DOI with
 </script>
 ```
 
-The visitor will see:
+Here is the same call executed with Python to show the real result:
 
-> **101** citations
+```{code-cell} python
+import requests
+
+response = requests.get(
+    "https://api.opencitations.net/index/v2/citation-count/doi:10.1162/qss_a_00023"
+)
+data = response.json()
+print(f'Results: {data[0]["count"]} citations')
+```

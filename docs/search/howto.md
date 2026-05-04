@@ -29,5 +29,5 @@ You can search using any of the following. Enter the value directly, without pre
 | Type | Example |
 |------|---------|
 | DOI | `10.1162/qss_a_00023` |
-| PubMed ID | `35821898` |
+| PubMed ID | `33817056` |
 | OpenAlex ID | `W3106215946` |

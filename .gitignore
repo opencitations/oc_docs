@@ -28,3 +28,6 @@ var/
 .installed.cfg
 *.egg
 .DS_Store
+
+# MyST build outputs
+_build
